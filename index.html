@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSeeker - Find Your Dream Job</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">JobSeeker</div>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Job title, keywords, or company" id="searchInput">
+                <button class="search-btn" id="searchBtn">Search</button>
+            </div>
+            <div style="font-size: 14px;">Welcome, User!</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <div class="filters-header">
+                <h2 class="filters-title">Filters</h2>
+                <a href="#" class="clear-filters" id="clearFilters">Clear All</a>
+            </div>
+
+            <!-- Salary Range Filter -->
+            <div class="filter-group">
+                <h3>Salary Range</h3>
+                <div class="salary-range">
+                    <input type="number" class="salary-input" placeholder="Min" id="salaryMin">
+                    <span class="range-separator">to</span>
+                    <input type="number" class="salary-input" placeholder="Max" id="salaryMax">
+                </div>
+            </div>
+
+            <!-- Job Type Filter -->
+            <div class="filter-group">
+                <h3>Job Type</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="fullTime" value="full-time">
+                    <label for="fullTime">Full-time</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="partTime" value="part-time">
+                    <label for="partTime">Part-time</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="contract" value="contract">
+                    <label for="contract">Contract</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="freelance" value="freelance">
+                    <label for="freelance">Freelance</label>
+                </div>
+            </div>
+
+            <!-- Remote Options -->
+            <div class="filter-group">
+                <h3>Work Location</h3>
+                <div class="filter-option">
+                    <input type="radio" id="onsite" name="remote" value="onsite">
+                    <label for="onsite">On-site</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" id="remote" name="remote" value="remote">
+                    <label for="remote">Remote</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" id="hybrid" name="remote" value="hybrid">
+                    <label for="hybrid">Hybrid</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" id="anyLocation" name="remote" value="any" checked>
+                    <label for="anyLocation">Any</label>
+                </div>
+            </div>
+
+            <!-- Experience Level -->
+            <div class="filter-group">
+                <h3>Experience Level</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="entry" value="entry">
+                    <label for="entry">Entry Level</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="mid" value="mid">
+                    <label for="mid">Mid Level</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="senior" value="senior">
+                    <label for="senior">Senior Level</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="executive" value="executive">
+                    <label for="executive">Executive</label>
+                </div>
+            </div>
+
+            <!-- City Filter -->
+            <div class="filter-group">
+                <h3>City</h3>
+                <select class="select-input" id="cityFilter">
+                    <option value="">Any City</option>
+                    <option value="new-york">New York</option>
+                    <option value="los-angeles">Los Angeles</option>
+                    <option value="chicago">Chicago</option>
+                    <option value="houston">Houston</option>
+                    <option value="phoenix">Phoenix</option>
+                    <option value="philadelphia">Philadelphia</option>
+                    <option value="san-antonio">San Antonio</option>
+                    <option value="san-diego">San Diego</option>
+                    <option value="dallas">Dallas</option>
+                    <option value="san-jose">San Jose</option>
+                </select>
+            </div>
+
+            <!-- Company Size -->
+            <div class="filter-group">
+                <h3>Company Size</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="startup" value="1-50">
+                    <label for="startup">Startup (1-50)</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="small" value="51-200">
+                    <label for="small">Small (51-200)</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="medium" value="201-1000">
+                    <label for="medium">Medium (201-1000)</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="large" value="1000+">
+                    <label for="large">Large (1000+)</label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Job Results -->
+        <main class="job-results">
+            <div class="results-header">
+                <div class="results-count" id="resultsCount">Jobs</div>
+                <select class="sort-dropdown" id="sortBy">
+                    <option value="relevance">Sort by: Relevance</option>
+                    <option value="date">Date Posted</option>
+                    <option value="salary-high">Salary: High to Low</option>
+                    <option value="salary-low">Salary: Low to High</option>
+                    <option value="company">Company A-Z</option>
+                </select>
+            </div>
+
+            <div class="job-listings" id="jobListings">
+                <!-- Sample Job Card Template (for preview) -->
+                <!-- <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <a href="#" class="job-title">Senior Frontend Developer</a>
+                            <div class="company-name">TechCorp Inc.</div>
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                    <div class="job-meta">
+                        <div class="meta-item icon-location">San Francisco, CA</div>
+                        <div class="meta-item icon-type">Full-time</div>
+                        <div class="meta-item icon-clock">2 days ago</div>
+                        <div class="meta-item icon-building">201-1000 employees</div>
+                    </div>
+                    <div class="job-description">
+                        We are seeking a talented Senior Frontend Developer to join our growing engineering team. You'll be responsible for building responsive, user-friendly web applications using modern JavaScript frameworks and working closely with our design and backend teams.
+                    </div>
+                    <div class="job-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag remote">Remote Friendly</span>
+                    </div>
+                    <div class="job-footer">
+                        <div class="salary">$90,000 - $120,000</div>
+                        <div class="posted-time">Posted 2 days ago</div>
+                    </div>
+                </div> -->
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

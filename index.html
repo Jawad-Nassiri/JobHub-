@@ -32,9 +32,9 @@
             <div class="filter-group">
                 <h3>Salary Range</h3>
                 <div class="salary-range">
-                    <input type="number" class="salary-input" placeholder="Min" id="salaryMin">
+                    <input type="number" class="salary-input" placeholder="Min" id="salaryMin" min="0" step="1000">
                     <span class="range-separator">to</span>
-                    <input type="number" class="salary-input" placeholder="Max" id="salaryMax">
+                    <input type="number" class="salary-input" placeholder="Max" id="salaryMax" min="0" step="1000">
                 </div>
             </div>
 
@@ -144,7 +144,7 @@
         <!-- Job Results -->
         <main class="job-results">
             <div class="results-header">
-                <div class="results-count" id="resultsCount">Jobs</div>
+                <div class="results-count" id="resultsCount"></div>
                 <select class="sort-dropdown" id="sortBy">
                     <option value="relevance">Sort by: Relevance</option>
                     <option value="date">Date Posted</option>

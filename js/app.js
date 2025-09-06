@@ -1,5 +1,17 @@
 const $ = document;
-offersContainer = $.querySelector('.job-listings');
+const offersContainer = $.querySelector('.job-listings');
+const resultsCount = $.getElementById('resultsCount');
+const salaryMin = $.getElementById('salaryMin');
+const salaryMax = $.getElementById('salaryMax');
+const jobTypeFilters = $.querySelectorAll('#fullTime, #partTime, #contract, #freelance');
+const workLocationFilters = $.querySelectorAll('input[name="remote"]');
+const experienceFilters = $.querySelectorAll('#entry, #mid, #senior, #executive');
+const cityFilter = $.getElementById('cityFilter');
+const companySizeFilters = $.querySelectorAll('#startup, #small, #medium, #large');
+const clearFilters = $.getElementById('clearFilters');
+const searchInput = $.getElementById('searchInput');
+const searchBtn = $.getElementById('searchBtn');
+const sortBy = $.getElementById('sortBy');
 
 
 const jobsData = [
@@ -515,9 +527,19 @@ const jobsData = [
     }
 ];
 
+// Render jobs function
+function renderJobs(jobs) {
+    offersContainer.innerHTML = ''; 
 
-const loadJobs = () => {
-    jobsData.forEach(job => {
+    resultsCount.textContent = `${jobs.length} job${jobs.length !== 1 ? 's' : ''} found`;
+
+    if (jobs.length === 0) {
+        offersContainer.innerHTML = `<p class="no-results">No jobs found matching your filters.</p>`;
+        return;
+    }
+
+    jobs.forEach(job => {
+
         const {
             title,
             company,
@@ -545,8 +567,8 @@ const loadJobs = () => {
                     </div>
                     <div class="job-meta">
                         <div class="meta-item icon-location">${location}</div>
-                        <div class="meta-item icon-type">${jobType.charAt(0).toUpperCase() + jobType.slice(1).replace('-', '-')}</div>
-                        <div class="meta-item icon-clock">${postedDaysAgo} days ago</div>
+                        <div class="meta-item icon-type">${jobType}</div>
+                        <div class="meta-item icon-clock">${postedDaysAgo} day${postedDaysAgo !== 1 ? 's' : ''} ago</div>
                         <div class="meta-item icon-building">${companySize} employees</div>
                     </div>
                     <div class="job-description">
@@ -557,13 +579,11 @@ const loadJobs = () => {
                         ${isRemoteFriendly ? '<span class="tag remote">Remote Friendly</span>' : ''}
                     </div>
                     <div class="job-footer">
-                        <div class="salary">${salaryMin.toLocaleString()} - ${salaryMax.toLocaleString()}</div>
-                        <div class="posted-time">Posted ${postedDaysAgo} days ago</div>
+                        <div class="salary">$${salaryMin.toLocaleString()} - $${salaryMax.toLocaleString()}</div>
+                        <div class="posted-time">Posted ${postedDaysAgo} day${postedDaysAgo !== 1 ? 's' : ''} ago</div>
                     </div>
                 </div>
             `
         );
     });
 }
-
-loadJobs();

@@ -13,7 +13,6 @@ const searchInput = $.getElementById('searchInput');
 const searchBtn = $.getElementById('searchBtn');
 const sortBy = $.getElementById('sortBy');
 
-
 const jobsData = [
     {
         id: 1,
@@ -539,7 +538,7 @@ function renderJobs(jobs) {
     }
 
     jobs.forEach(job => {
-
+        
         const {
             title,
             company,
@@ -587,3 +586,73 @@ function renderJobs(jobs) {
         );
     });
 }
+
+
+// apply filters method 
+function applyFilters() {
+    
+    let filteredJobs = jobsData.filter(job => {
+
+        // Salary filter
+        const minSalary = parseInt(salaryMin.value) || 0;
+        const maxSalary = parseInt(salaryMax.value) || Infinity;
+        if (minSalary > 0 && job.salaryMin < minSalary) return false;
+        if (maxSalary !== Infinity && job.salaryMax > maxSalary) return false;
+
+        // Job type filter
+        const selectedJobTypes = Array.from(jobTypeFilters)
+            .filter(filter => filter.checked)
+            .map(filter => filter.value);
+        if (selectedJobTypes.length > 0 && !selectedJobTypes.includes(job.jobType)) return false;
+
+        // Work location filter
+        const selectedLocation = Array.from(workLocationFilters).find(filter => filter.checked)?.value;
+        if (selectedLocation && selectedLocation !== 'any' && job.workLocation !== selectedLocation) return false;
+
+        // Experience level filter
+        const selectedExperience = Array.from(experienceFilters)
+            .filter(filter => filter.checked)
+            .map(filter => filter.value);
+        if (selectedExperience.length > 0 && !selectedExperience.includes(job.experienceLevel)) return false;
+
+        // City filter
+        if (cityFilter.value && job.city !== cityFilter.value) return false;
+
+        // Company size filter
+        const selectedCompanySizes = Array.from(companySizeFilters)
+            .filter(filter => filter.checked)
+            .map(filter => filter.value);
+        if (selectedCompanySizes.length > 0 && !selectedCompanySizes.includes(job.companySize)) return false;
+
+        // Search filter
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        if (searchTerm && 
+            !job.title.toLowerCase().includes(searchTerm) && 
+            !job.company.toLowerCase().includes(searchTerm) && 
+            !job.tags.some(tag => tag.toLowerCase().includes(searchTerm)) &&
+            !job.location.toLowerCase().includes(searchTerm) &&
+            !job.description.toLowerCase().includes(searchTerm)) return false;
+
+        return true;
+    });
+
+    switch (sortBy.value) {
+        case 'date':
+            filteredJobs.sort((a, b) => a.postedDaysAgo - b.postedDaysAgo);
+            break;
+        case 'salary-high':
+            filteredJobs.sort((a, b) => b.salaryMax - a.salaryMax);
+            break;
+        case 'salary-low':
+            filteredJobs.sort((a, b) => a.salaryMin - b.salaryMin);
+            break;
+        case 'company':
+            filteredJobs.sort((a, b) => a.company.localeCompare(b.company));
+            break;
+        default: // relevance (no sorting)
+            break;
+    }
+
+    renderJobs(filteredJobs);
+}
+

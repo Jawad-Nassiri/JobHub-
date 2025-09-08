@@ -656,3 +656,57 @@ function applyFilters() {
     renderJobs(filteredJobs);
 }
 
+// Clear all filters function
+function clearAllFilters() {
+    salaryMin.value = '';
+    salaryMax.value = '';
+    jobTypeFilters.forEach(f => f.checked = false);
+    experienceFilters.forEach(f => f.checked = false);
+    cityFilter.value = '';
+    companySizeFilters.forEach(f => f.checked = false);
+    searchInput.value = '';
+    sortBy.value = 'relevance';
+    
+    // Reset work location to "Any"
+    document.getElementById('anyLocation').checked = true;
+
+    renderJobs(jobsData);
+}
+
+// event Listeners
+salaryMin.addEventListener('input', applyFilters);
+salaryMax.addEventListener('input', applyFilters);
+
+jobTypeFilters.forEach(jobTypeFilter => {
+    jobTypeFilter.addEventListener('change', applyFilters);
+});
+
+workLocationFilters.forEach(workLocationFilter => {
+    workLocationFilter.addEventListener('change', applyFilters);
+});
+
+experienceFilters.forEach(experienceFilter => {
+    experienceFilter.addEventListener('change', applyFilters);
+});
+
+cityFilter.addEventListener('change', applyFilters);
+
+companySizeFilters.forEach(companySizeFilter => {
+    companySizeFilter.addEventListener('change', applyFilters);
+});
+
+searchInput.addEventListener('input', applyFilters);
+searchBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    applyFilters();
+});
+
+sortBy.addEventListener('change', applyFilters);
+
+clearFilters.addEventListener('click', (e) => {
+    e.preventDefault();
+    clearAllFilters();
+});
+
+// Initialize the application
+renderJobs(jobsData);

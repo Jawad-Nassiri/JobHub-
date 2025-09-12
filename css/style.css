@@ -404,3 +404,8 @@ body {
     margin-bottom: 8px;
     color: #374151;
 }
+
+.tag.remote.on-site {
+    background: rgb(219, 248, 248);
+    color: #000;
+}

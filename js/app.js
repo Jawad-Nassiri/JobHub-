@@ -528,7 +528,7 @@ const jobsData = [
 
 // Render jobs function
 function renderJobs(jobs) {
-    offersContainer.innerHTML = ''; 
+    offersContainer.innerHTML = '';
 
     resultsCount.textContent = `${jobs.length} job${jobs.length !== 1 ? 's' : ''} found`;
 
@@ -588,7 +588,7 @@ function renderJobs(jobs) {
 }
 
 
-// apply filters method 
+// apply filters method
 function applyFilters() {
     
     let filteredJobs = jobsData.filter(job => {
@@ -626,9 +626,9 @@ function applyFilters() {
 
         // Search filter
         const searchTerm = searchInput.value.toLowerCase().trim();
-        if (searchTerm && 
-            !job.title.toLowerCase().includes(searchTerm) && 
-            !job.company.toLowerCase().includes(searchTerm) && 
+        if (searchTerm &&
+            !job.title.toLowerCase().includes(searchTerm) &&
+            !job.company.toLowerCase().includes(searchTerm) &&
             !job.tags.some(tag => tag.toLowerCase().includes(searchTerm)) &&
             !job.location.toLowerCase().includes(searchTerm) &&
             !job.description.toLowerCase().includes(searchTerm)) return false;
@@ -649,14 +649,14 @@ function applyFilters() {
         case 'company':
             filteredJobs.sort((a, b) => a.company.localeCompare(b.company));
             break;
-        default: // relevance (no sorting)
+        default:
             break;
     }
 
     renderJobs(filteredJobs);
 }
 
-// Clear all filters function
+// clear all filters function
 function clearAllFilters() {
     salaryMin.value = '';
     salaryMax.value = '';
@@ -667,7 +667,6 @@ function clearAllFilters() {
     searchInput.value = '';
     sortBy.value = 'relevance';
     
-    // Reset work location to "Any"
     document.getElementById('anyLocation').checked = true;
 
     renderJobs(jobsData);
